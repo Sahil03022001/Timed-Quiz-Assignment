@@ -10,6 +10,7 @@ import lombok.experimental.UtilityClass;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -19,36 +20,10 @@ public class QuizConvertor {
 
     //building object of Quiz
     public static Quiz QuizRequestDtoToQuiz(QuizRequestDto quizRequestDto) throws ParseException {
-//        LocalDateTime currentDateTime = LocalDateTime.now();
-//        String dateString = "2023-05-26";
-//        String pattern = "yyyy-MM-dd";
-//        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-//        Date date = sdf.parse(dateString);
-//        String cronExpression = convertToCronExpression(date);
-//        String[] startArr = quizRequestDto.getStartDateAndTime().split(" ");
-//        String startDateString = startArr[0];
-//        String startTimeString = startArr[1];
-//
-//        String[] endArr = quizRequestDto.getStartDateAndTime().split(" ");
-//        String endDateString = endArr[0];
-//        String endTimeString = endArr[1];
-
-        String dateString = "2023-05-26 10:30:45";
-        String pattern = "yyyy-MM-dd HH:mm:ss";
-
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
-        LocalDateTime dateTime = LocalDateTime.parse(dateString, formatter);
-
-
-        if (currentDateTime.isAfter(quizRequestDto.getStartDateAndTime()) && currentDateTime.isBefore(quizRequestDto.getEndDateAndTime())) {
-            task.setActive(true);
-        } else {
-            task.setActive(false);
-        }
-        return Quiz.builder()
-                .startDateAndTime(quizRequestDto.getStartDateAndTime())
-                .endDateAndTime(quizRequestDto.getEndDateAndTime())
-                .build();
+        Quiz quiz = new Quiz();
+        quiz.setStartDateAndTime(quizRequestDto.getStartDateAndTime());
+        quiz.setEndDateAndTime(quizRequestDto.getEndDateAndTime());
+        return quiz;
     }
 
     //Builds an object of QuizResponseDto
@@ -72,8 +47,8 @@ public class QuizConvertor {
         }
 
         return QuizResponseDto.builder()
-                .startDateAndTime(quiz.getStartDateAndTime())
-                .endDateAndTime(quiz.getEndDateAndTime())
+                .startDateAndTime(quiz.getStartDateAndTime().toString())
+                .endDateAndTime(quiz.getEndDateAndTime().toString())
                 .questionResponseList(questionResponseDtos)
                 .build();
     }

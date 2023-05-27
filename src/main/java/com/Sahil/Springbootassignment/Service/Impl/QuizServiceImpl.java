@@ -15,6 +15,7 @@ import com.Sahil.Springbootassignment.Service.QuizService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
 import java.util.List;
 
 @Service
@@ -27,7 +28,7 @@ public class QuizServiceImpl implements QuizService {
     QuestionRepository questionRepository;
 
     @Override
-    public void createQuiz(QuizRequestDto quizRequestDto) {
+    public void createQuiz(QuizRequestDto quizRequestDto) throws ParseException {
         Quiz quiz = QuizConvertor.QuizRequestDtoToQuiz(quizRequestDto);
         quizRepository.save(quiz);
     }

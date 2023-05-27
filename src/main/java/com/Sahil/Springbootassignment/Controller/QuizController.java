@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
+
 @RestController
 @RequestMapping("/quizzes")
 public class QuizController {
@@ -21,7 +23,7 @@ public class QuizController {
     QuizService quizService;
 
     @PostMapping
-    public void createQuiz(@RequestBody QuizRequestDto quizRequestDto) {
+    public void createQuiz(@RequestBody QuizRequestDto quizRequestDto) throws ParseException {
         quizService.createQuiz(quizRequestDto);
     }
 

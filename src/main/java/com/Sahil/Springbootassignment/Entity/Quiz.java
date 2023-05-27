@@ -5,6 +5,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,20 +28,24 @@ public class Quiz {
     //end date and time of the quiz
     private LocalDateTime endDateAndTime;
 
-    private boolean isActive;
+    private boolean isActive = false;
 
     //list of questions
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     List<Question> questions = new ArrayList<>();
 
-    public Quiz() {
+    public void setStartDateAndTime(String startDateAndTime) {
+//        String dateString = "2023-05-26 10:30:45";
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        this.startDateAndTime = LocalDateTime.parse(startDateAndTime, formatter);
     }
 
-    public Quiz(int id, LocalDateTime startDateAndTime, LocalDateTime endDateAndTime, boolean isActive, List<Question> questions) {
-        this.id = id;
-        this.startDateAndTime = startDateAndTime;
-        this.endDateAndTime = endDateAndTime;
-        this.isActive = isActive;
-        this.questions = questions;
+    public void setEndDateAndTime(String endDateAndTime) {
+//        String dateString = "2023-05-26 10:30:45";
+        String pattern = "yyyy-MM-dd HH:mm:ss";
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
+        this.endDateAndTime = LocalDateTime.parse(endDateAndTime, formatter);
     }
 }
