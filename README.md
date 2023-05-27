@@ -7,6 +7,7 @@ The quizzes and their associated questions are stored in a MySQL database.
 
 The project utilizes cron jobs, which run every minute, to actively monitor the start and end times of each quiz. 
 This ensures that the status of a quiz (active or inactive) is updated in real-time.
+Added Caching feature to get All quizzes API and improved its runtime from 287ms to around 11ms.
 
 The project provides several GET APIs, including:
 
