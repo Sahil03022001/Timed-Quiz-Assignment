@@ -25,8 +25,10 @@ public class myTaskScheduler {
         for (Quiz quiz : quizzes) {
             if(currentDateTime.isBefore(quiz.getStartDateAndTime())) {
                 quiz.setQuizStatus(QuizStatus.INACTIVE);
+                quiz.setActive(false);
             } else if (currentDateTime.isAfter(quiz.getEndDateAndTime())) {
                 quiz.setQuizStatus(QuizStatus.FINISHED);
+                quiz.setActive(false);
             } else {
                 quiz.setQuizStatus(QuizStatus.ACTIVE);
                 quiz.setActive(true);
