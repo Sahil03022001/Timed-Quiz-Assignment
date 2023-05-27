@@ -14,5 +14,6 @@ public class QuizResponseDto {
 
     private String startDateAndTime;
     private String endDateAndTime;
+    private boolean isActive;
     private List<QuestionResponseDto> questionResponseList;
 }

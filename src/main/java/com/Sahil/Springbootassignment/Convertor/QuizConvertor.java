@@ -49,6 +49,7 @@ public class QuizConvertor {
         return QuizResponseDto.builder()
                 .startDateAndTime(quiz.getStartDateAndTime().toString())
                 .endDateAndTime(quiz.getEndDateAndTime().toString())
+                .isActive(quiz.isActive())
                 .questionResponseList(questionResponseDtos)
                 .build();
     }

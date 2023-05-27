@@ -1,18 +1,18 @@
-package com.Sahil.Springbootassignment;
+package com.Sahil.Springbootassignment.Scheduler;
 
 
 import com.Sahil.Springbootassignment.Entity.Quiz;
+import com.Sahil.Springbootassignment.Enum.QuizStatus;
 import com.Sahil.Springbootassignment.Repository.QuizRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 @Component
-public class TaskScheduler {
+public class myTaskScheduler {
 
     @Autowired
     QuizRepository quizRepository;
@@ -21,12 +21,16 @@ public class TaskScheduler {
     public void updateTaskStatus() {
         List<Quiz> quizzes = quizRepository.findAll();
         LocalDateTime currentDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
-        String formattedDateTime = currentDateTime.format(formatter);
-//        System.out.println(currentDateTime);
 
         for (Quiz quiz : quizzes) {
-            quiz.setActive(currentDateTime.isAfter(quiz.getStartDateAndTime()) && currentDateTime.isBefore(quiz.getEndDateAndTime()));
+            if(currentDateTime.isBefore(quiz.getStartDateAndTime())) {
+                quiz.setQuizStatus(QuizStatus.INACTIVE);
+            } else if (currentDateTime.isAfter(quiz.getEndDateAndTime())) {
+                quiz.setQuizStatus(QuizStatus.FINISHED);
+            } else {
+                quiz.setQuizStatus(QuizStatus.ACTIVE);
+                quiz.setActive(true);
+            }
             quizRepository.save(quiz);
         }
     }

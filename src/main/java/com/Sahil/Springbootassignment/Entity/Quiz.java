@@ -1,6 +1,7 @@
 package com.Sahil.Springbootassignment.Entity;
 
 import com.Sahil.Springbootassignment.DTO.QuestionResponseDto;
+import com.Sahil.Springbootassignment.Enum.QuizStatus;
 import lombok.*;
 
 import javax.persistence.*;
@@ -30,6 +31,9 @@ public class Quiz {
 
     private boolean isActive = false;
 
+    @Enumerated(EnumType.STRING)
+    private QuizStatus quizStatus;
+
     //list of questions
     @OneToMany(mappedBy = "quiz", cascade = CascadeType.ALL)
     List<Question> questions = new ArrayList<>();
@@ -37,7 +41,6 @@ public class Quiz {
     public void setStartDateAndTime(String startDateAndTime) {
 //        String dateString = "2023-05-26 10:30:45";
         String pattern = "yyyy-MM-dd HH:mm:ss";
-
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(pattern);
         this.startDateAndTime = LocalDateTime.parse(startDateAndTime, formatter);
     }
